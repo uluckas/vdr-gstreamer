@@ -31,15 +31,19 @@ void cGStreamerVideoSrc::Action(void) {
   gst_init (NULL, NULL);
   
   /* Create gstreamer elements */
-  mPipeline = gst_parse_launch("appsrc name=vdrsource ! "
-  "mpegpsdemux name=demux ! "
-  "queue max-size-buffers=0 max-size-time=0 ! "
-  "mpeg2dec ! "
-  VIDEO_SINK " ! "
-  "demux. ! "
-  "queue max-size-buffers=0 max-size-time=0 ! "
-  "ffdec_mp3 ! "
-  AUDIO_SINK " ", NULL);
+  GstElement *pipeline = gst_parse_launch("appsrc name=vdrsource"
+  " ! mpegpsdemux name=demux"
+  " { demux."
+  "   ! queue max-size-buffers=0 max-size-time=0 name=queue1"
+  "   ! mpeg2dec name=dec"
+  "   ! " VIDEO_SINK " name=video"
+  " }"
+  " { demux."
+  "   ! queue max-size-buffers=0 max-size-time=0 name=queue2"
+  "   ! mad name=mad"
+  "   ! " AUDIO_SINK " name=audio"
+  " } "
+  , NULL);
 //  "filesink location=/tmp/test.pes", NULL);
   
   if (!pipeline) {
