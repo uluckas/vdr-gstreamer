@@ -14,8 +14,7 @@ cGStreamerDevice::cGStreamerDevice() :
 cDevice() {
   isyslog("%s", __PRETTY_FUNCTION__);
   
-  mGRunLoopThread = new cGStreamerVideoSrc();
-  mGRunLoopThread->Start();
+  mGRunLoopThread = NULL;
 }
 
 cGStreamerDevice::~cGStreamerDevice() {
@@ -34,7 +33,16 @@ bool cGStreamerDevice::CanReplay(void) const {
 }
 
 bool cGStreamerDevice::SetPlayMode(ePlayMode PlayMode) {
-  isyslog("%s", __PRETTY_FUNCTION__);
+  isyslog("%s: %d", __PRETTY_FUNCTION__, PlayMode);
+  if (mGRunLoopThread) {
+    delete mGRunLoopThread;
+    mGRunLoopThread = NULL;
+  }
+  if (PlayMode != pmNone) {
+    mGRunLoopThread = new cGStreamerVideoSrc();
+    mGRunLoopThread->Start();
+  }
+
   return false;
 }
 

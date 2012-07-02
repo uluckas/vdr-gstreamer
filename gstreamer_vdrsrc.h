@@ -5,15 +5,14 @@
 #include <vdr/device.h>
 
 class cGStreamerVideoSrc : public cThread {
-  
-  GstElement *mPipeline, *mVdrSrc;
-  GstBus *bus;
-  
+    
 private:
   GMainLoop *mLoop;
+  GstElement *mVdrSrc;
   virtual void Action(void);
 
 public:
+  cGStreamerVideoSrc();
   virtual ~cGStreamerVideoSrc();
   
   virtual int playPesPacket(const uchar *data, int length, bool VideoOnly);
