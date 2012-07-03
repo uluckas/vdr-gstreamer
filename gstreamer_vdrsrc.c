@@ -4,8 +4,8 @@
 #include <fcntl.h>
 
 #if 1
-#define AUDIO_SINK "pulsesink"
-#define VIDEO_SINK "xvimagesink"
+#define AUDIO_SINK "autoaudiosink"
+#define VIDEO_SINK "autovideosink"
 #else
 #define AUDIO_SINK "alsasink"
 //#define VIDEO_SINK "dfbvideosink "
