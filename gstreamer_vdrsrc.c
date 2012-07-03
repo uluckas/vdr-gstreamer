@@ -36,6 +36,7 @@ void cGStreamerVideoSrc::Action(void) {
   " { demux."
   "   ! queue max-size-buffers=0 max-size-time=0 name=queue1"
   "   ! mpeg2dec name=dec"
+  "   ! ffdeinterlace mode=auto name=deinterlace"
   "   ! " VIDEO_SINK " name=video"
   " }"
   " { demux."
