@@ -5,7 +5,7 @@
 
 #if 1
 #define AUDIO_SINK "autoaudiosink"
-#define VIDEO_SINK "autovideosink"
+#define VIDEO_SINK "xvimagesink force-aspect-ratio=1 "
 #else
 #define AUDIO_SINK "alsasink"
 //#define VIDEO_SINK "dfbvideosink "
